@@ -3,6 +3,7 @@ let resultDisplay = document.querySelector("#result")
 let startPauseButton = document.querySelector("#start-pause-button")
 let squares = document.querySelectorAll(".grid div")
 let logsLeft = document.querySelectorAll(".log-left")
+let logsRight = document.querySelectorAll(".log-right")
 console.log(squares) // squares is essentially an array of all the divs/gridboxes that I created in the html 
 
 let currentIndex = 76 // that is where the starting block falls in the index array
@@ -36,15 +37,59 @@ document.addEventListener("keyup", moveFrog)
 
 
 function autoMoveLogs() {
-    logsLeft.forEach(logLeft => moveLogLeft(logLeft) ) // look into forEach
+    logsLeft.forEach(logLeft => moveLogLeft(logLeft)) // look into forEach
+    logsRight.forEach(logRight => moveLogRight(logRight))
 }
-autoMoveLogs
+
 
 function moveLogLeft(logLeft) {
-    switch(true) {
+    switch(true) { // if the first case is true ???
       case logLeft.classList.contains("l1"):
         logLeft.classList.remove("l1")
         logLeft.classList.add("l2")
         break
+      case logLeft.classList.contains("l2"):
+         logLeft.classList.remove("l2")
+         logLeft.classList.add("l3")
+        break
+      case logLeft.classList.contains("l3"):
+           logLeft.classList.remove("l3")
+           logLeft.classList.add("l4")
+        break
+      case logLeft.classList.contains("l4"):
+           logLeft.classList.remove("l4")
+           logLeft.classList.add("l5")
+        break
+      case logLeft.classList.contains("l5"):
+           logLeft.classList.remove("l5")
+           logLeft.classList.add("l1")
+        break
     }
 }
+
+function moveLogRight(logRight) {
+  switch(true) { //
+    case logRight.classList.contains("l1"):
+      logRight.classList.remove("l1")
+      logRight.classList.add("l5") // in order to go the opposite way, go in reverse 1 to 5, 2 to 1, 3 to 2 etc.
+      break
+    case logRight.classList.contains("l2"):
+       logRight.classList.remove("l2")
+       logRight.classList.add("l1")
+      break
+    case logRight.classList.contains("l3"):
+         logRight.classList.remove("l3")
+         logRight.classList.add("l2")
+      break
+    case logRight.classList.contains("l4"):
+         logRight.classList.remove("l4")
+         logRight.classList.add("l3")
+      break
+    case logRight.classList.contains("l5"):
+         logRight.classList.remove("l5")
+         logRight.classList.add("l4")
+      break
+  }
+}
+
+setInterval(autoMoveLogs, 1000)
