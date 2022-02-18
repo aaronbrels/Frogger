@@ -8,26 +8,24 @@ let currentIndex = 76 // that is where the starting block falls in the index arr
 let width = 9 // the width of the grid i.e. 9 squares
 
 function moveFrog(e) { // passing through the event into our function
+    squares[currentIndex].classList.remove("frog") // removes the frog from its current index, this makes it so that there is a trail of green boxes when moving the frog
+
 
 switch(e.key) { // we are getting the key of the event
     case "ArrowLeft" : 
-    console.log("move left")
-    currentIndex -= 1
+    if(currentIndex % width !== 0) currentIndex -= 1 // see text file
     break
 
     case "ArrowRight" : 
-    console.log("move right")
-    currentIndex += 1
+    if(currentIndex % width < width - 1) currentIndex += 1
     break
 
     case "ArrowUp" : 
-    console.log("move up")
-    currentIndex -= width // taking 76 - 9 giving us 67 which is the grid div directly above the starting div
+    if(currentIndex - width >= 0) currentIndex -= width // taking 76 - 9 giving us 67 which is the grid div directly above the starting div
     break
 
     case "ArrowDown" : 
-    console.log("move down")
-    currentIndex += width
+    if(currentIndex + width < width * width)currentIndex += width
     break
 }
 
