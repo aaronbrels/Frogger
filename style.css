@@ -1,0 +1,31 @@
+.grid {
+    border: 1px solid black;
+    height: 180px;
+    width: 180px;
+    display: flex; /* this and the next line make it so that 20x20 divs fit on the grid  */
+    flex-wrap: wrap;
+}
+
+.grid div { /* account for every div inside the div with the class of grid */
+    height: 20px;
+    width: 20px;
+    
+}
+
+.ending-block {
+    background-color: red;
+}
+
+.starting-block {
+    background-color: blue;
+}
+
+.log-left, .log-right {
+background-color: lightblue;
+}
+
+
+.car-left, .car-right {
+background-color: lightgrey;
+}
+
