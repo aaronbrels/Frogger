@@ -10,6 +10,7 @@ console.log(squares) // squares is essentially an array of all the divs/gridboxe
 
 let currentIndex = 76 // that is where the starting block falls in the index array
 let width = 9 // the width of the grid i.e. 9 squares
+let timerId 
 
 function moveFrog(e) { // passing through the event into our function
     squares[currentIndex].classList.remove("frog") // removes the frog from its current index, this makes it so that there is a trail of green boxes when moving the frog
@@ -43,6 +44,7 @@ function autoMove() {
     logsRight.forEach(logRight => moveLogRight(logRight))
     carsLeft.forEach(carLeft => moveCarLeft(carLeft))
     carsRight.forEach(carRight => moveCarRight(carRight))
+    lose()
 }
 
 
@@ -130,4 +132,16 @@ function moveCarRight(carRight) {
   }
 }
 
-setInterval(autoMove, 1000)
+function lose() {
+  if(squares[currentIndex].classList.contains("c1") || 
+     squares[currentIndex].classList.contains("l4") ||
+     squares[currentIndex].classList.contains("l5") 
+  ) {
+    resultDisplay.textContent = "You Lose!"
+    clearInterval(timerId) // stops the interval
+    squares[currentIndex].classList.remove("frog")
+    document.removeEventListener("keyup", moveFrog)
+  }
+}
+
+timerId = setInterval(autoMove, 1000)
