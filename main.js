@@ -4,6 +4,8 @@ let startPauseButton = document.querySelector("#start-pause-button")
 let squares = document.querySelectorAll(".grid div")
 let logsLeft = document.querySelectorAll(".log-left")
 let logsRight = document.querySelectorAll(".log-right")
+let carsLeft = document.querySelectorAll(".car-left")
+let carsRight = document.querySelectorAll(".car-right")
 console.log(squares) // squares is essentially an array of all the divs/gridboxes that I created in the html 
 
 let currentIndex = 76 // that is where the starting block falls in the index array
@@ -36,9 +38,11 @@ switch(e.key) { // we are getting the key of the event
 document.addEventListener("keyup", moveFrog)
 
 
-function autoMoveLogs() {
+function autoMove() {
     logsLeft.forEach(logLeft => moveLogLeft(logLeft)) // look into forEach
     logsRight.forEach(logRight => moveLogRight(logRight))
+    carsLeft.forEach(carLeft => moveCarLeft(carLeft))
+    carsRight.forEach(carRight => moveCarRight(carRight))
 }
 
 
@@ -92,4 +96,38 @@ function moveLogRight(logRight) {
   }
 }
 
-setInterval(autoMoveLogs, 1000)
+function moveCarLeft(carLeft) {
+  switch(true) { // if the first case is true ???
+    case carLeft.classList.contains("c1"):
+      carLeft.classList.remove("c1")
+      carLeft.classList.add("c2")
+      break
+    case carLeft.classList.contains("c2"):
+       carLeft.classList.remove("c2")
+       carLeft.classList.add("c3")
+      break
+    case carLeft.classList.contains("c3"):
+         carLeft.classList.remove("c3")
+         carLeft.classList.add("c1")
+      break
+  }
+}
+
+function moveCarRight(carRight) {
+  switch(true) { // if the first case is true ???
+    case carRight.classList.contains("c1"):
+      carRight.classList.remove("c1")
+      carRight.classList.add("c3")
+      break
+    case carRight.classList.contains("c2"):
+       carRight.classList.remove("c2")
+       carRight.classList.add("c1")
+      break
+    case carRight.classList.contains("c3"):
+         carRight.classList.remove("c3")
+         carRight.classList.add("c2")
+      break
+  }
+}
+
+setInterval(autoMove, 1000)
