@@ -1,0 +1,10 @@
+IN REGARDS TO THE SWITH STATEMENT
+    * any square with the index 0, 9, 18 etc.
+    * any of these numbers are divisible by 9 and leave no remainder then they are at the very left edge of the grid
+    * as long as the current index does not equal 0 we can move left
+    * so i'm saying if current index does not equal zero the user can move left, if the index is 0 they can't
+
+ARROW UP SWITCH STATEMENT
+    * currentIndex - width >= 0
+    * if currentIndex is 1   1 - 9 = -8 means can't go up any more
+    * currentIndex 10- 9 = 1 can go up 

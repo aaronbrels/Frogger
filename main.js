@@ -2,6 +2,7 @@ let timeLeftDisplay = document.querySelector("#time-left")
 let resultDisplay = document.querySelector("#result")
 let startPauseButton = document.querySelector("#start-pause-button")
 let squares = document.querySelectorAll(".grid div")
+let logsLeft = document.querySelectorAll(".log-left")
 console.log(squares) // squares is essentially an array of all the divs/gridboxes that I created in the html 
 
 let currentIndex = 76 // that is where the starting block falls in the index array
@@ -20,7 +21,7 @@ switch(e.key) { // we are getting the key of the event
     if(currentIndex % width < width - 1) currentIndex += 1
     break
 
-    case "ArrowUp" : 
+    case "ArrowUp" :  
     if(currentIndex - width >= 0) currentIndex -= width // taking 76 - 9 giving us 67 which is the grid div directly above the starting div
     break
 
@@ -32,3 +33,18 @@ switch(e.key) { // we are getting the key of the event
     squares[currentIndex].classList.add("frog") // I'm saying look at the 1st index in the squares array and add the class of frog to it which gives it the styling that I created in css
 }
 document.addEventListener("keyup", moveFrog)
+
+
+function autoMoveLogs() {
+    logsLeft.forEach(logLeft => moveLogLeft(logLeft) ) // look into forEach
+}
+autoMoveLogs
+
+function moveLogLeft(logLeft) {
+    switch(true) {
+      case logLeft.classList.contains("l1"):
+        logLeft.classList.remove("l1")
+        logLeft.classList.add("l2")
+        break
+    }
+}
