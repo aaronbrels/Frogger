@@ -11,6 +11,8 @@ console.log(squares) // squares is essentially an array of all the divs/gridboxe
 let currentIndex = 76 // that is where the starting block falls in the index array
 let width = 9 // the width of the grid i.e. 9 squares
 let timerId 
+let outcomeTimerId
+let currentTime = 20
 
 function moveFrog(e) { // passing through the event into our function
     squares[currentIndex].classList.remove("frog") // removes the frog from its current index, this makes it so that there is a trail of green boxes when moving the frog
@@ -36,18 +38,23 @@ switch(e.key) { // we are getting the key of the event
 
     squares[currentIndex].classList.add("frog") // I'm saying look at the 1st index in the squares array and add the class of frog to it which gives it the styling that I created in css
 }
-document.addEventListener("keyup", moveFrog)
+
 
 
 function autoMove() {
+    currentTime-- // get currentTime and minus 1
+    timeLeftDisplay.textContent = currentTime // show the time left
     logsLeft.forEach(logLeft => moveLogLeft(logLeft)) // look into forEach
     logsRight.forEach(logRight => moveLogRight(logRight))
     carsLeft.forEach(carLeft => moveCarLeft(carLeft))
     carsRight.forEach(carRight => moveCarRight(carRight))
-    lose()
-    win()
+   
 }
 
+function checkOutcomes () {
+  lose()
+  win()
+}
 
 function moveLogLeft(logLeft) {
     switch(true) { // if the first case is true ???
@@ -136,10 +143,12 @@ function moveCarRight(carRight) {
 function lose() {
   if(squares[currentIndex].classList.contains("c1") || 
      squares[currentIndex].classList.contains("l4") ||
-     squares[currentIndex].classList.contains("l5") 
+     squares[currentIndex].classList.contains("l5") ||
+     currentTime <= 0
   ) {
     resultDisplay.textContent = "You Lose!"
     clearInterval(timerId) // stops the interval
+    clearInterval(outcomeTimerId)
     squares[currentIndex].classList.remove("frog")
     document.removeEventListener("keyup", moveFrog)
   }
@@ -149,8 +158,23 @@ function win() {
   if(squares[currentIndex].classList.contains("ending-block")){
     resultDisplay.textContent = "You Win!"
     clearInterval(timerId) // stops the interval
+    clearInterval(outcomeTimerId)
     document.removeEventListener("keyup", moveFrog)
   }
 }
 
-timerId = setInterval(autoMove, 1000)
+startPauseButton.addEventListener("click", () => { // call back function
+  console.log("timerId", timerId)
+  if(timerId) { // when we press start this will be null
+    clearInterval(timerId)
+    clearInterval(outcomeTimerId)
+    outcomeTimerId = null
+    timerId = null
+    document.removeEventListener("keyup", moveFrog) // makes sure that when you hit the pause button the frog can't move 
+  } else {
+    timerId = setInterval(autoMove, 1000)
+    outcomeTimerId = setInterval(checkOutcomes,50)
+    document.addEventListener("keyup", moveFrog) // only allow frog movement if the player has pressed the start button
+  }
+})
+
